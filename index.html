@@ -281,10 +281,9 @@
             margin-bottom: 0.5rem;
         }
         
-        .step-2-footer {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1.5rem;
+        .fixed-next-button {
+            margin-top: auto;
+            padding-top: 1rem;
         }
         
         /* Navigation buttons for topics section */
@@ -403,13 +402,13 @@
             <div class="step-2-container">
                 <!-- Topics Section (75%) -->
                 <div class="topics-section" id="topics-scroll-container">
-                    <!-- Navigation buttons -->
-                    <button id="nav-up" class="nav-button up hidden">
+                    <!-- Navigation buttons - NOW VISIBLE BY DEFAULT -->
+                    <button id="nav-up" class="nav-button up">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
                         </svg>
                     </button>
-                    <button id="nav-down" class="nav-button down hidden">
+                    <button id="nav-down" class="nav-button down">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
@@ -424,17 +423,19 @@
                     <div class="category-scroll-container" id="category-list">
                         <!-- Categories will be populated by JavaScript -->
                     </div>
+                    
+                    <div class="fixed-next-button">
+                        <button id="step-2-next" class="w-full px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out disabled:opacity-50 flex items-center justify-center space-x-2">
+                            <span>Next: Assignment Type</span>
+                            <span id="step-2-next-icon" class="font-bold">→</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <!-- UPDATED: Step 2 footer with both buttons -->
-            <div class="step-2-footer">
+            <div class="flex justify-between mt-8">
                 <button id="step-2-back" class="px-6 py-3 text-gray-600 border border-gray-400 rounded-lg font-semibold hover:bg-gray-100 transition duration-150 ease-in-out">
                     ← Back to API Setup
-                </button>
-                <button id="step-2-next" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-150 ease-in-out disabled:opacity-50 flex items-center justify-center space-x-2">
-                    <span>Next: Assignment Type</span>
-                    <span id="step-2-next-icon" class="font-bold">→</span>
                 </button>
             </div>
         </div>
@@ -733,6 +734,7 @@
                     renderTopicCategories();
                     initializeScrollNavigation();
                     updateNavigationButtons();
+                    updateCategoryHighlighter(); // Ensure highlighter is positioned correctly
                 }, 100);
             }
         }
@@ -947,6 +949,9 @@
             const activeCategoryItem = document.querySelector('.category-item.highlighted');
             
             if (activeCategoryItem) {
+                const rect = activeCategoryItem.getBoundingClientRect();
+                const containerRect = getElement('category-list').getBoundingClientRect();
+                
                 highlighter.style.width = `${activeCategoryItem.offsetWidth}px`;
                 highlighter.style.height = `${activeCategoryItem.offsetHeight}px`;
                 highlighter.style.top = `${activeCategoryItem.offsetTop}px`;
