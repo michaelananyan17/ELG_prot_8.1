@@ -13,7 +13,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            padding: 1rem 1rem;
+            padding: 2rem 1rem;
         }
         .app-container {
             background-color: #ffffff;
@@ -21,7 +21,7 @@
             max-width: 4xl;
             width: 100%;
             border-radius: 1rem;
-            padding: 1.5rem 1.5rem;
+            padding: 2rem 1.5rem;
             position: relative; 
         }
 
@@ -185,25 +185,26 @@
             transform: translateY(0);
         }
 
-        /* Updated styles for Step 2 layout - COMPACT VERSION */
+        /* Updated styles for Step 2 layout */
         .step-2-container {
             display: flex;
-            height: 380px; /* Reduced height significantly */
-            gap: 2rem;
-            margin-top: 0.5rem;
+            height: 500px; /* Reduced height */
+            gap: 1rem; /* Reduced gap */
+            margin-top: 1rem;
         }
         
         .topics-section {
-            flex: 0 0 75%;
-            overflow-y: hidden; /* No scrolling - fixed height */
+            flex: 0 0 80%; /* Increased from 75% to 80% */
+            overflow-y: auto;
             padding-right: 1rem;
             position: relative;
         }
         
         .category-section {
-            flex: 0 0 25%;
+            flex: 0 0 20%; /* Decreased from 25% to 20% */
             border-left: 1px solid #e5e7eb;
-            padding-left: 1rem;
+            padding-left: 0.5rem; /* Reduced padding */
+            padding-right: 0.5rem; /* Added right padding */
             display: flex;
             flex-direction: column;
             position: relative;
@@ -211,21 +212,21 @@
         
         .category-scroll-container {
             flex: 1;
-            overflow-y: hidden; /* No scrolling - fixed height */
+            overflow-y: auto;
             margin-bottom: 1rem;
             position: relative;
-            max-height: 300px; /* Limit to show only 7 categories */
         }
         
         .category-item {
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.5rem;
+            padding: 0.5rem 0.75rem; /* Reduced padding */
+            margin-bottom: 0.25rem; /* Reduced margin */
             border-radius: 0.5rem;
             cursor: pointer;
             transition: all 0.2s;
             font-weight: 500;
             position: relative;
             z-index: 1;
+            font-size: 0.875rem; /* Smaller font */
         }
         
         .category-highlighter {
@@ -242,7 +243,7 @@
         
         .topic-category {
             min-height: 100%;
-            padding: 1rem 0; /* Reduced padding */
+            padding: 2rem 0;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
@@ -254,50 +255,47 @@
         }
         
         .topic-category h3 {
-            font-size: 1.2rem; /* Smaller font */
+            font-size: 1.5rem;
             font-weight: bold;
-            margin-bottom: 1rem; /* Reduced margin */
+            margin-bottom: 1.5rem;
             color: #1f2937;
         }
         
-        /* Updated topic grid with only 2 rows */
+        /* Updated topic grid with wider cards and no category labels */
         .topic-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Slightly narrower cards */
-            gap: 0.75rem; /* Reduced gap */
-            max-height: 250px; /* Limit to 2 rows */
-            overflow: hidden;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Wider cards */
+            gap: 1rem;
         }
         
         .card-topic {
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
+            justify-content: flex-end; /* Move content to bottom */
             align-items: center;
             text-align: center;
-            padding: 1rem; /* Reduced padding */
-            min-height: 100px; /* Smaller cards */
+            padding: 1.5rem;
+            min-height: 120px;
         }
         
         .card-topic h3 {
-            margin-top: auto;
+            margin-top: auto; /* Push to bottom */
             margin-bottom: 0.5rem;
-            font-size: 0.9rem; /* Smaller font */
         }
         
         .step-2-footer {
             display: flex;
             justify-content: space-between;
-            margin-top: 1rem; /* Reduced margin */
+            margin-top: 1.5rem;
         }
         
         /* Navigation buttons for topics section */
         .nav-button {
             position: absolute;
-            background: rgba(83, 80, 252, 0.7);
+            background: rgba(83, 80, 252, 0.7); /* Semi-transparent */
             border: none;
             border-radius: 50%;
-            width: 36px;
+            width: 36px; /* Smaller than Select button */
             height: 36px;
             display: flex;
             align-items: center;
@@ -328,11 +326,14 @@
         }
     </style>
 </head>
-<body class="p-4 sm:p-6">
+<body class="p-4 sm:p-8">
     <div id="app-container" class="app-container">
-        <!-- REMOVED: Header section for Steps 1-4 -->
+        <div id="header-section" class="mb-8">
+            <h1 class="text-3xl font-extrabold text-gray-900 mb-2 text-center">PELE Assignment Generator</h1>
+            <p class="text-gray-500 text-center">Powered by OpenAI</p>
+        </div>
 
-        <div class="mb-6">
+        <div class="mb-8">
             <div class="relative pt-1">
                 <div class="flex mb-2 items-center justify-between">
                     <div class="text-right">
@@ -368,10 +369,8 @@
         </div>
 
         <div id="step-2" class="step-content hidden">
-            <!-- REMOVED: Step 2 title and description -->
-            <div class="flex justify-between items-center mb-4">
-                <!-- Empty div to maintain flex layout but remove the title -->
-                <div></div>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Step 2: Choose Your Topic</h2>
                 <div class="flex items-center space-x-3">
                     <input type="file" id="upload-topic-input" accept=".txt,.pdf" class="hidden">
                     <button id="upload-topic-btn" class="upload-button flex flex-col items-center justify-between px-4 py-1 rounded-lg text-white font-semibold flex-shrink-0" style="width: 130px; height: 50px;">
@@ -389,7 +388,7 @@
                 </div>
             </div>
 
-            <!-- REMOVED: Topic selection instructions paragraph -->
+            <p class="text-gray-600 mb-4">Select **1 or 2 topics**. The order of selection determines the priority for content generation.</p>
 
             <div class="p-4 border border-gray-200 rounded-lg bg-gray-50 mb-4">
                 <div class="flex space-x-2 items-center">
@@ -400,11 +399,11 @@
                     </button>
                 </div>
             </div>
-            <p id="selected-topics-indicator" class="text-sm font-medium text-gray-700 mb-4">Selected Topics (Priority Order): None</p>
+            <p id="selected-topics-indicator" class="text-sm font-medium text-gray-700 mb-6">Selected Topics (Priority Order): None</p>
 
-            <!-- UPDATED: Compact Step 2 layout -->
+            <!-- UPDATED LAYOUT FOR STEP 2 -->
             <div class="step-2-container">
-                <!-- Topics Section (75%) - Limited to 2 rows -->
+                <!-- Topics Section (80%) -->
                 <div class="topics-section" id="topics-scroll-container">
                     <!-- Navigation buttons -->
                     <button id="nav-up" class="nav-button up hidden">
@@ -421,7 +420,7 @@
                     <!-- Categories will be populated by JavaScript -->
                 </div>
                 
-                <!-- Category Section (25%) - Limited to 7 categories -->
+                <!-- Category Section (20%) - Made thinner -->
                 <div class="category-section">
                     <div class="category-highlighter" id="category-highlighter"></div>
                     <div class="category-scroll-container" id="category-list">
@@ -495,7 +494,11 @@
 
         <div id="step-4" class="step-content hidden">
             
-            <!-- REMOVED: Header for Step 4 -->
+            <header class="text-center mb-10">
+                <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Personalized English Learning</h1>
+                <p id="step-title" class="text-xl font-medium text-indigo-600 mt-2">My Personal Assignment</p>
+                <p class="text-gray-500 mt-1">Topic(s): <span id="final-topic-display" class="font-semibold text-gray-700"></span> | Level: <span id="final-level-display" class="font-semibold text-gray-700"></span></p>
+            </header>
             
             <div id="generation-loading" class="text-center p-12 border border-dashed border-gray-300 rounded-lg hidden">
                 <div class="spinner mx-auto mb-4"></div>
@@ -532,13 +535,6 @@
         </div>
 
         <div id="step-5" class="step-content hidden">
-            <!-- Step 5 keeps its header since it's the final step -->
-            <header class="text-center mb-10">
-                <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Personalized English Learning</h1>
-                <p id="step-title" class="text-xl font-medium text-indigo-600 mt-2">My Personal Assignment</p>
-                <p class="text-gray-500 mt-1">Topic(s): <span id="final-topic-display" class="font-semibold text-gray-700"></span> | Level: <span id="final-level-display" class="font-semibold text-gray-700"></span></p>
-            </header>
-            
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Step 5: Final Review & Export</h2>
             
             <div class="p-6 bg-green-50 border-l-4 border-green-400 text-green-700 rounded-lg mb-6">
@@ -591,7 +587,7 @@
         };
 
         // ==========================================================================================
-        // UPDATED TOPIC_POOL_DATA WITH LIMITED CATEGORIES (FIRST 7 ONLY)
+        // UPDATED TOPIC_POOL_DATA WITH REQUESTED CATEGORY ORDER
         // ==========================================================================================
         const CATEGORIES = [
             'Current Events',
@@ -600,8 +596,10 @@
             'World History',
             'Media & Entertainment',
             'Style & Fashion',
-            'Art & Theatre'
-            // Removed: 'English Literature', 'Geography & Nature', 'Cats & Dogs'
+            'Art & Theatre',
+            'English Literature',
+            'Geography & Nature',
+            'Cats & Dogs'
         ];
 
         const TOPIC_POOL_DATA = [
@@ -666,7 +664,30 @@
             { id: 46, name: 'Modern Theatre', icon: '🎭', category: 'Art & Theatre' },
             { id: 47, name: 'Sculpture', icon: '🗿', category: 'Art & Theatre' },
             { id: 48, name: 'Performance Art', icon: '💃', category: 'Art & Theatre' },
-            { id: 49, name: 'Art History', icon: '📜', category: 'Art & Theatre' }
+            { id: 49, name: 'Art History', icon: '📜', category: 'Art & Theatre' },
+
+            // English Literature
+            { id: 50, name: 'Shakespeare', icon: '🎭', category: 'English Literature' },
+            { id: 51, name: 'Poetry Analysis', icon: '📜', category: 'English Literature' },
+            { id: 52, name: 'Modern Novels', icon: '📖', category: 'English Literature' },
+            { id: 53, name: 'Literary Criticism', icon: '✍️', category: 'English Literature' },
+            { id: 54, name: 'Classic Literature', icon: '🏛️', category: 'English Literature' },
+
+            // Geography & Nature
+            { id: 55, name: 'Climate Change', icon: '🌍', category: 'Geography & Nature' },
+            { id: 56, name: 'Volcanoes', icon: '🌋', category: 'Geography & Nature' },
+            { id: 57, name: 'Major River Systems', icon: '🏞️', category: 'Geography & Nature' },
+            { id: 58, name: 'Urban Planning', icon: '🏙️', category: 'Geography & Nature' },
+            { id: 59, name: 'Natural Resources', icon: '🌿', category: 'Geography & Nature' },
+            { id: 60, name: 'Capital Cities', icon: '🗺️', category: 'Geography & Nature' },
+            { id: 61, name: 'Nutrition & Diet', icon: '🍎', category: 'Geography & Nature' },
+
+            // Cats & Dogs
+            { id: 62, name: 'Cat Behavior', icon: '🐱', category: 'Cats & Dogs' },
+            { id: 63, name: 'Dog Training', icon: '🐶', category: 'Cats & Dogs' },
+            { id: 64, name: 'Pet Nutrition', icon: '🥩', category: 'Cats & Dogs' },
+            { id: 65, name: 'Animal Welfare', icon: '❤️', category: 'Cats & Dogs' },
+            { id: 66, name: 'Veterinary Science', icon: '🐾', category: 'Cats & Dogs' }
         ];
         
         let TOPIC_POOL = [...TOPIC_POOL_DATA];
@@ -714,8 +735,6 @@
                     renderTopicCategories();
                     initializeScrollNavigation();
                     updateNavigationButtons();
-                    // FIX: Ensure highlighter is properly positioned on initial load
-                    setTimeout(updateCategoryHighlighter, 150);
                 }, 100);
             }
         }
@@ -920,8 +939,8 @@
                 `;
             }).join('');
             
-            // FIX: Position the highlighter immediately after rendering
-            setTimeout(updateCategoryHighlighter, 50);
+            // Position the highlighter
+            updateCategoryHighlighter();
         }
 
         // NEW: Function to update the category highlighter position
@@ -929,16 +948,15 @@
             const highlighter = getElement('category-highlighter');
             const activeCategoryItem = document.querySelector('.category-item.highlighted');
             
-            if (activeCategoryItem && highlighter) {
+            if (activeCategoryItem) {
                 highlighter.style.width = `${activeCategoryItem.offsetWidth}px`;
                 highlighter.style.height = `${activeCategoryItem.offsetHeight}px`;
                 highlighter.style.top = `${activeCategoryItem.offsetTop}px`;
                 highlighter.style.left = `${activeCategoryItem.offsetLeft}px`;
-                highlighter.style.opacity = '1';
             }
         }
 
-        // UPDATED: Function to render topic categories with only 2 rows
+        // UPDATED: Function to render topic categories with wider cards and no category labels
         function renderTopicCategories() {
             const topicsContainer = getElement('topics-scroll-container');
             topicsContainer.innerHTML = CATEGORIES.map(category => {
@@ -1002,7 +1020,7 @@
                 activeSection.classList.add('active');
             }
             
-            // FIX: Update navigation buttons and highlighter immediately
+            // Update navigation buttons and highlighter
             updateNavigationButtons();
             updateCategoryHighlighter();
         }
