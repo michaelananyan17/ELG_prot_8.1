@@ -733,6 +733,8 @@
                     renderTopicCategories();
                     initializeScrollNavigation();
                     updateNavigationButtons();
+                    // FIX: Ensure highlighter is properly positioned on initial load
+                    setTimeout(updateCategoryHighlighter, 150);
                 }, 100);
             }
         }
@@ -937,8 +939,8 @@
                 `;
             }).join('');
             
-            // Position the highlighter
-            updateCategoryHighlighter();
+            // FIX: Position the highlighter immediately after rendering
+            setTimeout(updateCategoryHighlighter, 50);
         }
 
         // NEW: Function to update the category highlighter position
@@ -946,11 +948,12 @@
             const highlighter = getElement('category-highlighter');
             const activeCategoryItem = document.querySelector('.category-item.highlighted');
             
-            if (activeCategoryItem) {
+            if (activeCategoryItem && highlighter) {
                 highlighter.style.width = `${activeCategoryItem.offsetWidth}px`;
                 highlighter.style.height = `${activeCategoryItem.offsetHeight}px`;
                 highlighter.style.top = `${activeCategoryItem.offsetTop}px`;
                 highlighter.style.left = `${activeCategoryItem.offsetLeft}px`;
+                highlighter.style.opacity = '1';
             }
         }
 
@@ -1018,7 +1021,7 @@
                 activeSection.classList.add('active');
             }
             
-            // Update navigation buttons and highlighter
+            // FIX: Update navigation buttons and highlighter immediately
             updateNavigationButtons();
             updateCategoryHighlighter();
         }
