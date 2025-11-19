@@ -890,10 +890,13 @@
             icon.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-        // NEW: Function to update navigation buttons based on current category
+        // FIXED: Function to update navigation buttons based on current category
         function updateNavigationButtons() {
             const navUp = getElement('nav-up');
             const navDown = getElement('nav-down');
+            
+            // Check if elements exist before manipulating them
+            if (!navUp || !navDown) return;
             
             // Show/hide up button - not needed for first category
             if (appState.currentCategory === CATEGORIES[0]) {
@@ -926,7 +929,7 @@
             scrollToCategory(CATEGORIES[newIndex]);
         }
 
-        // UPDATED: Function to render the category sidebar with highlighter
+        // FIXED: Function to render the category sidebar with highlighter
         function renderCategorySidebar() {
             const categoryContainer = getElement('category-list');
             categoryContainer.innerHTML = CATEGORIES.map(category => {
@@ -943,12 +946,12 @@
             updateCategoryHighlighter();
         }
 
-        // NEW: Function to update the category highlighter position
+        // FIXED: Function to update the category highlighter position
         function updateCategoryHighlighter() {
             const highlighter = getElement('category-highlighter');
             const activeCategoryItem = document.querySelector('.category-item.highlighted');
             
-            if (activeCategoryItem) {
+            if (activeCategoryItem && highlighter) {
                 highlighter.style.width = `${activeCategoryItem.offsetWidth}px`;
                 highlighter.style.height = `${activeCategoryItem.offsetHeight}px`;
                 highlighter.style.top = `${activeCategoryItem.offsetTop}px`;
@@ -956,7 +959,7 @@
             }
         }
 
-        // UPDATED: Function to render topic categories with wider cards and no category labels
+        // FIXED: Function to render topic categories with wider cards and no category labels
         function renderTopicCategories() {
             const topicsContainer = getElement('topics-scroll-container');
             topicsContainer.innerHTML = CATEGORIES.map(category => {
@@ -985,7 +988,7 @@
             }).join('');
         }
 
-        // UPDATED: Function to scroll to a specific category
+        // FIXED: Function to scroll to a specific category
         function scrollToCategory(category) {
             const categoryElement = getElement(`category-${category.replace(/\s+/g, '-')}`);
             if (categoryElement) {
@@ -994,7 +997,7 @@
             }
         }
 
-        // UPDATED: Function to set the active category with highlighter
+        // FIXED: Function to set the active category with highlighter
         function setActiveCategory(category) {
             appState.currentCategory = category;
             
@@ -1025,11 +1028,15 @@
             updateCategoryHighlighter();
         }
 
-        // UPDATED: Function to initialize scroll-based navigation
+        // FIXED: Function to initialize scroll-based navigation
         function initializeScrollNavigation() {
             const topicSections = document.querySelectorAll('.topic-category');
+            const topicsContainer = getElement('topics-scroll-container');
+            
+            if (!topicsContainer) return;
+            
             const observerOptions = {
-                root: getElement('topics-scroll-container'),
+                root: topicsContainer,
                 rootMargin: '0px',
                 threshold: 0.5
             };
@@ -1048,7 +1055,7 @@
             });
         }
 
-        // UPDATED: Function to render all cards (for Step 3)
+        // FIXED: Function to render all cards (for Step 3)
         function renderCards() {
             // For Step 2, we use the new layout with scroll-triggered categories
             if (appState.currentStep === 2) {
